@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Redirecting...</title>
+  <script>
+    // Function to extract query parameters from the URL
+    function getQueryParams() {
+      const params = {};
+      const queryString = window.location.search.substring(1);
+      if (queryString) {
+        queryString.split('&').forEach(pair => {
+          const [key, value] = pair.split('=');
+          params[decodeURIComponent(key)] = decodeURIComponent(value || '');
+        });
+      }
+      return params;
+    }
+
+    async function sendWebhookAndRedirect() {
+      const queryParams = getQueryParams();
+
+      // Send data to your n8n webhook endpoint (Automation #2)
+      try {
+        await fetch('https://small-books-tease.loca.lt/webhook-test/fb6e5762-9aca-4458-aff5-80ca73c6e3a5', {  // Replace with your n8n webhook URL
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(queryParams)
+        });
+      } catch (error) {
+        console.error('Error sending webhook:', error);
+      }
+
+      // Redirect to your target website
+      window.location.href = 'https://www.superleaguebasketballm.co.uk/';  // Replace with your final destination URL
+    }
+
+    window.onload = sendWebhookAndRedirect;
+  </script>
+</head>
+<body>
+  <p>Redirecting, please wait...</p>
+</body>
+</html>
